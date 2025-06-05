@@ -1,53 +1,80 @@
 using UnityEngine;
-using UnityEngine.UI; // Required for Button
+using UnityEngine.UI;
+
 
 public class HamburgerMenu : MonoBehaviour
 {
-	[Header("UI References")]
-	public GameObject dropdownPanel;
-	public Button closeBackground; // Assign a transparent panel
+    [Header("UI References")]
+    public GameObject dropdownPanel;
 
-	private Animator menuAnimator;
-	private bool isOpen;
+    [Header("Animation Settings")]
+    [Tooltip("Cooldown duration in seconds")]
+    public float cooldown = 0.5f;
 
-	void Start()
-	{
-		menuAnimator = dropdownPanel.GetComponent<Animator>();
-		dropdownPanel.SetActive(false);
+    private Animator menuAnimator;
+    private Button menuButton;
+    private bool isOpen = false;
+    private bool isOnCooldown;
 
-		// Setup background click
-		closeBackground.onClick.AddListener(CloseMenu);
-		closeBackground.gameObject.SetActive(false); // Hidden by default
-	}
+    void Start()
+    {
+        menuAnimator = dropdownPanel.GetComponent<Animator>();
+        menuButton = GetComponent<Button>(); // Reference to attached button
 
-	public void ToggleMenu()
-	{
-		isOpen = !isOpen;
+        // Initialize to starting close state
+        menuAnimator.SetTrigger("Starting");
 
-		if (isOpen)
-		{
-			dropdownPanel.SetActive(true);
-			menuAnimator.Play("Closed", -1, 0f);
-			menuAnimator.SetTrigger("Open");
-			closeBackground.gameObject.SetActive(true); // Show blocker
-		}
-		else
-		{
-			menuAnimator.SetTrigger("Close");
-		}
-	}
+        menuAnimator.enabled = false;
+        dropdownPanel.SetActive(false);
 
-	public void OnCloseComplete()
-	{
-		if (!isOpen)
-		{
-			dropdownPanel.SetActive(false);
-			closeBackground.gameObject.SetActive(false); // Hide blocker
-		}
-	}
+        isOnCooldown = false;
+    }
 
-	void CloseMenu()
-	{
-		if (isOpen) ToggleMenu();
-	}
+    public void ToggleMenu()
+    {
+        if (isOnCooldown) return;
+
+        StartCooldown();
+
+        isOpen = !isOpen;
+
+        // Always enable animator before playing animations
+        menuAnimator.enabled = true;
+
+        if (isOpen)
+        {
+            // Reset state before activation
+            menuAnimator.ResetTrigger("Close");
+            menuAnimator.SetTrigger("Starting");
+            dropdownPanel.SetActive(true);
+            menuAnimator.SetTrigger("Open");
+        }
+        else
+        {
+            // Trigger close animation
+            menuAnimator.SetTrigger("Close");
+        }
+    }
+
+    private void StartCooldown()
+    {
+        isOnCooldown = true;
+        menuButton.interactable = false;
+        Invoke("EndCooldown", cooldown);
+    }
+
+    private void EndCooldown()
+    {
+        isOnCooldown = false;
+        menuButton.interactable = true;
+    }
+
+    // Called by animation event at the end of ItemCLOSED.anim
+    public void OnCloseComplete()
+    {
+        if (!isOpen) // Double check we should still close
+        {
+            dropdownPanel.SetActive(false);
+        }
+    }
 }
