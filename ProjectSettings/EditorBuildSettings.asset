@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Profile/AddFriends.unity
     guid: 0b6e2c1aeec8fa94c82d2874bbb4a839
   - enabled: 1
+    path: Assets/Scenes/Profile/FriendSelected.unity
+    guid: dfc1762b6c0841f4584ef6c4e49dc7d7
+  - enabled: 1
     path: Assets/Scenes/Settings.unity
     guid: ce3c0b44c076aae43898876ecd6cb301
   - enabled: 1
