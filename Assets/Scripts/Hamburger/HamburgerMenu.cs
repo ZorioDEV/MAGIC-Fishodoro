@@ -21,9 +21,6 @@ public class HamburgerMenu : MonoBehaviour
         menuAnimator = dropdownPanel.GetComponent<Animator>();
         menuButton = GetComponent<Button>(); // Reference to attached button
 
-        // Initialize to starting close state
-        menuAnimator.SetTrigger("Starting");
-
         menuAnimator.enabled = false;
         dropdownPanel.SetActive(false);
 
@@ -45,7 +42,6 @@ public class HamburgerMenu : MonoBehaviour
         {
             // Reset state before activation
             menuAnimator.ResetTrigger("Close");
-            menuAnimator.SetTrigger("Starting");
             dropdownPanel.SetActive(true);
             menuAnimator.SetTrigger("Open");
         }
@@ -75,6 +71,9 @@ public class HamburgerMenu : MonoBehaviour
         if (!isOpen) // Double check we should still close
         {
             dropdownPanel.SetActive(false);
+
+            // Ensure animator is disabled when closed
+            menuAnimator.enabled = false;
         }
     }
 }
