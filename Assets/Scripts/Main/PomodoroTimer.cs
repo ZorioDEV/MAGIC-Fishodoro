@@ -10,6 +10,7 @@ public class PomodoroTimer : MonoBehaviour
     public TMP_Text stateText; // NEW: Added state text reference
     public Button playPauseButton;
     public Button resetButton;
+    public Button skipButton; // NEW: Skip button
     public Image playPauseImage;
     public Sprite playSprite;
     public Sprite pauseSprite;
@@ -55,6 +56,7 @@ public class PomodoroTimer : MonoBehaviour
 
         playPauseButton.onClick.AddListener(TogglePlayPause);
         resetButton.onClick.AddListener(ResetTimer);
+        skipButton.onClick.AddListener(SkipToNextPhase); // NEW: Skip button listener
 
         UpdateTimerDisplay();  // Ensure display is updated immediately
         UpdateButtonImage();
@@ -76,7 +78,7 @@ public class PomodoroTimer : MonoBehaviour
         }
     }
 
-    void LoadSettings()
+    public void LoadSettings()
     {
         studyDuration = PlayerPrefs.GetInt("StudyDuration", 25);
         shortBreakDuration = PlayerPrefs.GetInt("ShortBreakDuration", 5);
@@ -131,11 +133,11 @@ public class PomodoroTimer : MonoBehaviour
     {
         isStudyPhase = !isStudyPhase;
         sessionCount = isStudyPhase ? (sessionCount + 1) : sessionCount;
+        UpdateStateText(); // Update state after phase change
         currentTime = GetNextPhaseTime();
         endTime = DateTime.Now.Add(currentTime);
         PlayAlarm();
         SaveTimerState();
-        UpdateStateText(); // NEW: Update state after phase change
     }
 
     void TogglePlayPause()
@@ -160,24 +162,37 @@ public class PomodoroTimer : MonoBehaviour
     {
         isRunning = false; // Stop the timer
         isStudyPhase = true;
-        sessionCount = 0;
+        sessionCount = 1;
         currentTime = TimeSpan.FromMinutes(studyDuration);
+        UpdateStateText(); // Update state after phase change
         SaveTimerState();
         UpdateTimerDisplay();
         UpdateButtonImage();
-        UpdateStateText(); // NEW: Update state after reset
+    }
+
+    // NEW: Skip to next phase functionality
+    public void SkipToNextPhase()
+    {
+        isRunning = false; // Pause after skip
+        isStudyPhase = !isStudyPhase;
+        sessionCount = isStudyPhase ? (sessionCount + 1) : sessionCount;
+        UpdateStateText(); // Update state after phase change
+        currentTime = GetNextPhaseTime();
+        SaveTimerState();
+        UpdateTimerDisplay();
+        UpdateButtonImage();
     }
 
     void CompletePhase()
     {
         isStudyPhase = !isStudyPhase;
         sessionCount = isStudyPhase ? (sessionCount + 1) : sessionCount;
+        UpdateStateText(); // Update state after phase change
         currentTime = GetNextPhaseTime();
         endTime = DateTime.Now.Add(currentTime);
         PlayAlarm();
         SaveTimerState();
         UpdateTimerDisplay();  // Ensure UI updates after phase change
-        UpdateStateText(); // NEW: Update state after phase change
     }
 
     TimeSpan GetNextPhaseTime()
@@ -199,23 +214,19 @@ public class PomodoroTimer : MonoBehaviour
 
     void PlayAlarm()
     {
-        // Implement your audio playback here
-        Debug.Log("Alarm! Volume: " + alarmVolume);
+        // TODO: Implement your audio playback here
     }
 
     void UpdateTimerDisplay()
     {
         if (timerText != null)
         {
-            timerText.text = $"{Math.Abs(currentTime.Minutes):D2}:{Math.Abs(currentTime.Seconds):D2}";
-        }
-        else
-        {
-            Debug.LogError("TimerText reference is missing!");
+            timerText.text = $"{Math.Abs((int)currentTime.TotalMinutes):D2}:{Math.Abs(currentTime.Seconds):D2}";
         }
     }
 
     // NEW: State text update method
+    // TODO: ADD TEXT LOCALIZATION
     void UpdateStateText()
     {
         if (stateText != null)
@@ -223,7 +234,6 @@ public class PomodoroTimer : MonoBehaviour
             if (isStudyPhase)
             {
                 stateText.text = "Study";
-                stateText.color = Color.red; // Red for study
             }
             else
             {
@@ -231,18 +241,12 @@ public class PomodoroTimer : MonoBehaviour
                 if (useLongBreaks && sessionCount >= 3)
                 {
                     stateText.text = "Long Break";
-                    stateText.color = Color.green; // Green for long break
                 }
                 else
                 {
                     stateText.text = "Short Break";
-                    stateText.color = Color.blue; // Blue for short break
                 }
             }
-        }
-        else
-        {
-            Debug.LogError("StateText reference is missing!");
         }
     }
 

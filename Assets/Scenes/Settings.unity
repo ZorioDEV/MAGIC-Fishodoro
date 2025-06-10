@@ -385,6 +385,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 0
   minutes: 45
+  selectionIndicator: {fileID: 112031829}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &112031828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +523,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 0
   minutes: 15
+  selectionIndicator: {fileID: 213314420}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &213314419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,6 +697,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 0
   minutes: 5
+  selectionIndicator: {fileID: 426846685}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &426846684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,7 +743,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 426846685}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &426846685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,6 +1003,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 0
   minutes: 60
+  selectionIndicator: {fileID: 809646842}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &809646841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,6 +1374,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 1
   minutes: 15
+  selectionIndicator: {fileID: 907918913}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &907918912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1621,6 +1648,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 2
   minutes: 20
+  selectionIndicator: {fileID: 972675238}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &972675237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2131,6 +2161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 2
   minutes: 25
+  selectionIndicator: {fileID: 1103393738}
+  selectedColor: {r: 0, g: 0.097714186, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1103393737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2266,6 +2299,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 2
   minutes: 15
+  selectionIndicator: {fileID: 1180133516}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1180133515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2616,6 +2652,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 0
   minutes: 25
+  selectionIndicator: {fileID: 1321657848}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1321657847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2906,6 +2945,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 1
   minutes: 10
+  selectionIndicator: {fileID: 1407844859}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1407844858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3292,6 +3334,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationType: 1
   minutes: 5
+  selectionIndicator: {fileID: 1675569434}
+  selectedColor: {r: 0, g: 0.09803922, b: 1, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1675569433
 MonoBehaviour:
   m_ObjectHideFlags: 0
